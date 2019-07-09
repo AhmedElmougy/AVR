@@ -1,0 +1,8 @@
+#ifndef _HEEPROM_INTERFACE_H_
+#define _HEEPROM_INTERFACE_H_
+
+#define P2 0
+
+#define START_CONDITION_HAS_BEEN_TRANSIMTTED 0x08
+
+#endif 
