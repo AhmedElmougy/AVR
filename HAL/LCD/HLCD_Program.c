@@ -7,6 +7,7 @@
 #include "HLCD_Privte.h"
 #include "HLCD_Interface.h"
 #include "HLCD_Config.h"
+#include "Lib.h"
 
 void HLCD_Write_CMD(u8 Cont_REG,u8 Data_REG,u8 DATA)
 {
@@ -112,15 +113,54 @@ void HLCD_SET_CURSOR(u8 LINE,u8 POSITION)
 }
 void HLCD_DisplayChar(u8 Char_Data)
 {
-	HLCD_Write_Data(ContREG,DataREG,Char_Data);      //send Char to LCD
-	_delay_ms(0.5);
-}
-//Output String to LCD
-void HLCD_DisplayStr(u8* Str_Data) 
-{
-	while(*Str_Data!='\0')                            //check if null char reached
+	if((Char_Data>=0)&&(Char_Data<10))
 	{
-		HLCD_Write_Data(ContREG,DataREG,*Str_Data++); //send Char to LCD
+		HLCD_Write_Data(ContREG,DataREG,(Char_Data+'0')); //send Number to LCD
+		_delay_ms(1);
+	}
+	else
+	{
+		HLCD_Write_Data(ContREG,DataREG,Char_Data); //send Char to LCD
+		_delay_ms(1);
+	}
+}
+
+void HLCD_DisplayStr(u32 *Str_Data,u8 DataType) //Output String to LCD
+{
+	u8 *Local_u8StringData = (u8 *)Str_Data;
+	
+	u8  Local_u8Digit = 0;
+	u32 Local_u32No = 0;
+	u32 Local_u32Remainder =0;
+	
+	if (DataType == HLCD_NUMBER)
+	{
+		Local_u32No = *Str_Data;
+		for (u8 i=0;i<10;i++)
+		{
+			if ((Local_u32No / L_u32GetExponential(10,(9-i))) != 0)
+			{
+				for (u8 j=i;j<10;j++)
+				{
+					Local_u32Remainder = Local_u32No % L_u32GetExponential(10,(9-j));
+					Local_u8Digit      = Local_u32No / L_u32GetExponential(10,(9-j));
+					Local_u32No = Local_u32Remainder;
+					HLCD_DisplayChar(Local_u8Digit);
+				}
+				break;
+			}
+		}
+		if (Local_u32No == 0)
+		{
+			HLCD_DisplayChar(Local_u8Digit);
+		}
+	}
+	else if(DataType == HLCD_STRING)
+	{
+		while(*Local_u8StringData!='\0')//check if null char reached
+		{
+			HLCD_DisplayChar(*Local_u8StringData++);
+		}
 	}
 }
 //Shift all display right
@@ -346,15 +386,54 @@ void HLCD_SEL_LINE_4BIT(u8 LINE) //Select line 1 or 2
 }
 void HLCD_DisplayChar_4BIT(u8 Char_Data)
 {
-	HLCD_Write_Data_4BIT(ContREG,DataREG,Char_Data); //send Char to LCD
-	_delay_ms(1);
+	if((Char_Data>=0)&&(Char_Data<10))
+	{
+		HLCD_Write_Data_4BIT(ContREG,DataREG,(Char_Data+'0')); //send Number to LCD
+		_delay_ms(1);
+	}
+	else
+	{
+		HLCD_Write_Data_4BIT(ContREG,DataREG,Char_Data); //send Char to LCD
+		_delay_ms(1);	
+	}
 }
 
-void HLCD_DisplayStr_4BIT(u8* Str_Data) //Output String to LCD
+void HLCD_DisplayStr_4BIT(u32 *Str_Data,u8 DataType) //Output String to LCD
 {
-	while(*Str_Data!='\0')//check if null char reached
+	u8 *Local_u8StringData = (u8 *)Str_Data;
+	
+	u8  Local_u8Digit = 0;
+	u32 Local_u32No = 0;
+	u32 Local_u32Remainder =0;
+	
+	if (DataType == HLCD_NUMBER)
 	{
-		HLCD_Write_Data_4BIT(ContREG,DataREG,*Str_Data++); //send Char to LCD
+		Local_u32No = *Str_Data;
+		for (u8 i=0;i<10;i++)
+		{
+			if ((Local_u32No / L_u32GetExponential(10,(9-i))) != 0)
+			{
+				for (u8 j=i;j<10;j++)
+				{
+					Local_u32Remainder = Local_u32No % L_u32GetExponential(10,(9-j));
+					Local_u8Digit      = Local_u32No / L_u32GetExponential(10,(9-j));
+					Local_u32No = Local_u32Remainder;
+					HLCD_DisplayChar_4BIT(Local_u8Digit);
+				}
+				break;
+			}
+		}
+		if (Local_u32No == 0)
+		{
+			HLCD_DisplayChar_4BIT(Local_u8Digit);
+		}	
+	} 
+	else if(DataType == HLCD_STRING)
+	{
+		while(*Local_u8StringData!='\0')//check if null char reached
+		{
+			HLCD_DisplayChar_4BIT(*Local_u8StringData++);
+		}	
 	}
 }
 void HLCD_ShiftRight_4BIT(void)//Shift all display right

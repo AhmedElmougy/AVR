@@ -2,6 +2,9 @@
 #define __HLCD_Interface_h__
 
 
+//Data types
+#define HLCD_NUMBER   0
+#define HLCD_STRING   1
 
 //Custom character names to choose between them
 #define HLCD_CUST_CHAR_1 1
@@ -18,9 +21,10 @@ void HLCD_ReturnHome(void); //return cursor to first position LCD content doesn'
 
 void HLCD_SEL_LINE(u8 LINE); //Select line 1 or 2
 void HLCD_SET_CURSOR(u8 LINE,u8 POSITION); //set cursor in specific position choose line and position from 1 to 16
-
+/*Disply char and number*/
 void HLCD_DisplayChar(u8 Char_Data); //Output character to to specific line LCD
-void HLCD_DisplayStr(u8 * Str_Data); //Output String to specific line LCD
+/*Disply String of chars u8 pointer -Casted u8 inside the fn implementation- and a u32 number 10 bit max i/p as a pointer*/
+void HLCD_DisplayStr(u32 *Str_Data); //Output String to specific line LCD
 
 void HLCD_ShiftRight(void); //Shift characters right one step
 void HLCD_ShiftLeft(void); //Shift characters Left one step
@@ -49,7 +53,7 @@ void HLCD_SEL_LINE_4BIT(u8 LINE); //Select line 1 or 2
 void HLCD_SET_CURSOR_4BIT(u8 LINE,u8 POSITION); //Set cursor in specific location
 
 void HLCD_DisplayChar_4BIT(u8 Char_Data); //Output character to to specific line LCD
-void HLCD_DisplayStr_4BIT(u8 * Str_Data); //Output String to specific line LCD
+void HLCD_DisplayStr_4BIT(u32 *Str_Data,u8 DataType); //Output String to specific line LCD
 
 void HLCD_ShiftRight_4BIT(void); //Shift all display right one step
 void HLCD_ShiftLeft_4BIT(void); //Shift all display Left one step
