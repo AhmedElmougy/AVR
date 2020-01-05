@@ -1,5 +1,11 @@
 #include "LSTD_Types.h"
 
+
+/*
+*exponential module 
+*Argument:exponent, base
+*return  :exponential value
+*/
 u32 L_u32GetExponential(u8 Copy_u8LBase, u8 Copy_u8LExponent)
 {
     u32 Local_u32Result = 1;
