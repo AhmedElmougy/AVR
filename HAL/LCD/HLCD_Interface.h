@@ -1,72 +1,179 @@
+/*
+ * File        : HLCD_Interface.h
+ * Description : This interface file includes LCD Driver prototypes and definitions for Atmega32
+ * Author      : Ahmed Elmogy Embedded SW Engineer 
+ * Date        : 5/2/2020
+ * Git account : https://github.com/AhmedElmougy
+ * mail        : ahmed.m.elmogy@gmil.com 
+ */
+
 #ifndef __HLCD_Interface_h__
 #define __HLCD_Interface_h__
 
+/*=========================================================================*
+ * Macros for modules input arguments
+ *=========================================================================*/
 
-//Data types
+/*Status*/
+#define HLCD_ON       1
+#define HLCD_OFF      0
+
+/*Data types*/
 #define HLCD_NUMBER   0
 #define HLCD_STRING   1
 
-//Custom character names to choose between them
-#define HLCD_CUST_CHAR_1 1
-#define HLCD_CUST_CHAR_2 2
-#define HLCD_CUST_CHAR_3 3
-#define HLCD_CUST_CHAR_4 4
+/*LCD lines*/
+#define HLCD_LINE1    1
+#define HLCD_LINE2    2
 
-//8 Bit -----------------------------------------------------------------------
-
-void HLCD_INIT(void); //Initiate LCD
-
-void HLCD_ClearLCD(void); //clear LCD and return cursor to first position
-void HLCD_ReturnHome(void); //return cursor to first position LCD content doesn't affect
-
-void HLCD_SEL_LINE(u8 LINE); //Select line 1 or 2
-void HLCD_SET_CURSOR(u8 LINE,u8 POSITION); //set cursor in specific position choose line and position from 1 to 16
-/*Disply char and number*/
-void HLCD_DisplayChar(u8 Char_Data); //Output character to to specific line LCD
-/*Disply String of chars u8 pointer -Casted u8 inside the fn implementation- and a u32 number 10 bit max i/p as a pointer*/
-void HLCD_DisplayStr(u32 *Str_Data); //Output String to specific line LCD
-
-void HLCD_ShiftRight(void); //Shift characters right one step
-void HLCD_ShiftLeft(void); //Shift characters Left one step
-void HLCD_EN_SCRN_ShiftRight(void); //Shift all display right out of screen
-void HLCD_EN_SCRN_ShiftLeft(void); //Shift all display Left out of screen
-void HLCD_Cursor_ShiftRight(u8 steps); //shift cursor one step right
-void HLCD_Cursor_ShiftLeft(u8 steps); //shift cursor one step left
-
-void HLCD_Cursor_ONOFF(u8 STATUS); //set cursor and blinking on & of
-void HLCD_Blink_ONOFF(u8 STATUS); //set cursor blinking only on & off
-void HLCD_Disp_ONOFF(u8 STATUS); //set Whole display on & off
-
-void HLCD_CUST_CHAR(u8 SLOT_NUM); //create custom character in CGRAM
+/*Custom character names to choose between them*/
+#define HLCD_CUST_CHAR_1 0
+#define HLCD_CUST_CHAR_2 1
+#define HLCD_CUST_CHAR_3 2
+#define HLCD_CUST_CHAR_4 3
+#define HLCD_CUST_CHAR_5 4
+#define HLCD_CUST_CHAR_6 5
+#define HLCD_CUST_CHAR_7 6
+#define HLCD_CUST_CHAR_8 7
 
 
 
-//4 Bit -----------------------------------------------------------------------
-
-void HLCD_INIT_4BIT(void); //Initiate LCD 4 BIT mode 
 
 
-void HLCD_ClearLCD_4BIT(void); //clear LCD and return cursor to first position
-void HLCD_ReturnHome_4BIT(void); //return cursor to first position LCD content doesn't affect
+/*==============================================================================================================================================
+ * LCD Modules
+ *==============================================================================================================================================*/
+ 
 
-void HLCD_SEL_LINE_4BIT(u8 LINE); //Select line 1 or 2
-void HLCD_SET_CURSOR_4BIT(u8 LINE,u8 POSITION); //Set cursor in specific location
+/* 
+ * Prototype   : void HLCD_voidInitializeLCD(void);
+ * Description : Initialize LCD in a desired data and control registers
+ *               in 4 bit mode control and data register must be the same register 
+ * Arguments   : void                   
+ * return      : void  
+ */
+ void HLCD_voidInitializeLCD(void);
 
-void HLCD_DisplayChar_4BIT(u8 Char_Data); //Output character to to specific line LCD
-void HLCD_DisplayStr_4BIT(u32 *Str_Data,u8 DataType); //Output String to specific line LCD
+ /* 
+  * Prototype   : void HLCD_voidClearLCD(void);
+  * Description : clear LCD and return cursor to first position
+  * Arguments   : void
+  * return      : void
+  */
+  void HLCD_voidClearLCD(void);
 
-void HLCD_ShiftRight_4BIT(void); //Shift all display right one step
-void HLCD_ShiftLeft_4BIT(void); //Shift all display Left one step
-void HLCD_EN_SCRN_ShiftRight_4BIT(void); //Shift all display right out of screen
-void HLCD_EN_SCRN_ShiftLeft_4BIT(void); //Shift all display Left out of screen
-void HLCD_Cursor_ShiftRight_4BIT(u8 steps); //shift cursor one step right
-void HLCD_Cursor_ShiftLeft_4BIT(u8 steps); //shift cursor one step left
+ /* 
+  * Prototype   : void HLCD_voidReturnHome(void);
+  * Description : return cursor to first position LCD content doesn't affect
+  * Arguments   : void
+  * return      : void
+  */
+  void HLCD_voidReturnHome(void);
 
-void HLCD_Cursor_ONOFF_4BIT(u8 STATUS); //set cursor and blinking on & off
-void HLCD_Blink_ONOFF_4BIT(u8 STATUS); //set cursor blinking only on & off
-void HLCD_Disp_ONOFF_4BIT(u8 STATUS); //set Whole display on & off
-void HLCD_CUST_CHAR_4BIT(u8 SLOT_NUM); //create custom character in CGRAM
+ /* 
+  * Prototype   : void HLCD_voidSelectLine(u8 Copy_u8Line);
+  * Description : Select line 1 or 2 in LCD
+  * Arguments   : choose line from (HLCD_LINE1 or HLCD_LINE2)
+  * return      : void
+  */
+  void HLCD_voidSelectLine(u8 Copy_u8Line);
+ 
+ /* 
+  * Prototype   : void HLCD_voidSetCursorPosition(u8 Copy_u8Line,u8 Copy_u8Position);
+  * Description : set cursor in specific position (choose line and position in line from 1 to 16)
+  * Arguments   : line HLCD_LINE1 or HLCD_LINE2
+  *               Position from 1 to 16
+  * return      : void
+  */
+  void HLCD_voidSetCursorPosition(u8 Copy_u8Line,u8 Copy_u8Position);
 
+ /* 
+  * Prototype   : void HLCD_voidDisplayChar(u8 Copy_u8CharData);
+  * Description : Output character to current cursor position
+  * Arguments   : Char_Data : Character to be displayed
+  * return      : void
+  */
+  void HLCD_voidDisplayChar(u8 Copy_u8CharData);
+ 
+ /* 
+  * Prototype   : void HLCD_voidDisplayChar(u8 Copy_u8CharData);
+  * Description : Output String or a number to LCD at current cursor position
+  * Arguments   : DataPointer: pointer to data stream to be displayed it could be 
+  *               - Number of type u32 but function can handle up to 10 digit number (0,1,...,4294967296)
+  *               - u8 character string
+  *			      Data type: HLCD_NUMBER or HLCD_STRING 
+  * return      : void
+  */
+  void HLCD_voidDisplayString(u32 *Copy_u32StringDataPtr,u8 Copy_u8DataType); 
+ 
+ /* 
+  * Prototype   : void HLCD_voidShiftRight(void);
+  * Description : Shift all display right one step
+  * Arguments   : void
+  * return      : void  
+  */
+  void HLCD_voidShiftRight(void);
 
-
+ /* 
+  * Prototype   : void HLCD_voidShiftLeft(void);
+  * Description : Shift all display left one step
+  * Arguments   : void
+  * return      : void  
+  */
+  void HLCD_voidShiftLeft(void); 
+  
+ /* 
+  * Prototype   : void HLCD_voidCursorShiftRight(u8 Copy_u8Steps);
+  * Description : shift cursor position right number of steps 
+  * Arguments   : Number of Steps
+  * return      : void  
+  */
+  void HLCD_voidCursorShiftRight(u8 Copy_u8Steps); 
+ 
+ /* 
+  * Prototype   : void HLCD_voidCursorShiftLeft(u8 Copy_u8Steps);
+  * Description : shift cursor position Left number of steps 
+  * Arguments   : Number of Steps
+  * return      : void  
+  */
+  void HLCD_voidCursorShiftLeft(u8 Copy_u8Steps);
+ 
+ /* 
+  * Prototype   : void HLCD_voidCursorDisplayOnOff(u8 Copy_u8Status);
+  * Description : set cursor display on and off
+  * Arguments   : Status : HLCD_Disp_ON_OFF or HLCD_CURSOR_OFF
+  * return      : void  
+  */
+  void HLCD_voidCursorDisplayOnOff(u8 Copy_u8Status);
+ 
+ /* 
+  * Prototype   : void HLCD_voidCursorBlinkOnOff(u8 Copy_u8Status);
+  * Description : set cursor blinking on and off
+  * Arguments   : Status : HLCD_Disp_ON_OFF or HLCD_BLINK_OFF
+  * return      : void  
+  */
+  void HLCD_voidCursorBlinkOnOff(u8 Copy_u8Status);
+ 
+ 
+ /* 
+  * Prototype   : void HLCD_voidDisplayOnOff(u8 Copy_u8Status);
+  * Description : set Whole display on & off
+  * Arguments   : Status :
+  *               HLCD_Disp_OFF or HLCD_Disp_ON_OFF
+  * return      : void  
+  */
+  void HLCD_voidScreenDisplayOnOff(u8 Copy_u8Status); 
+ 
+ /* 
+  * Prototype   : void HLCD_voidScreenDisplayCustomChar(u8 Copy_SlotNumber);
+  * Description : use custom character from CGRAM
+  * Arguments   : slot number : from (HLCD_CUST_CHAR_1, HLCD_CUST_CHAR_2,...HLCD_CUST_CHAR_8)
+  * return      : void  
+  */
+  void HLCD_voidDisplayCustomChar(u8 Copy_SlotNumber);
+ 
 #endif
+
+/*==============================================================================================================================================
+ * EOF 
+ *==============================================================================================================================================*/

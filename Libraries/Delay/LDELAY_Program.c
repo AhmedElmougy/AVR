@@ -3,7 +3,7 @@
 #include "LDELAY_Private.h"
 
 
-void LDelay_voidms(u32 Copy_u32Time_ms)
+void LDelay_voidDelay_ms(u32 Copy_u32Time_ms)
 {
 	
 	Copy_u32Time_ms = (Copy_u32Time_ms * 100000)-(LDELAY_CalculationTime + LDELAY_ContextSwitch);
@@ -15,10 +15,10 @@ void LDelay_voidms(u32 Copy_u32Time_ms)
 	
 }
 
-void LDelay_voidus(u32 Copy_u32Time_us)
+void LDelay_voidDelay_us(u32 Copy_u32Time_us)
 {
-	Copy_u32Time_us = Copy_u32Time_us-(LDELAY_CalculationTime/1000)-(LDELAY_ContextSwitch/1000);
-	u32 Local_u32NoLoops = (Copy_u32Time_us*1000)/LDELAY_LoopTime;
+	Copy_u32Time_us = (Copy_u32Time_us * 100) - LDELAY_CalculationTime - LDELAY_ContextSwitch;
+	u32 Local_u32NoLoops = Copy_u32Time_us / LDELAY_LoopTime;
 	for(u32 i=0;i<Local_u32NoLoops;i++)
 	{
 		asm("NOP");
