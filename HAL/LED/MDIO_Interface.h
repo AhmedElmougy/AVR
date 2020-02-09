@@ -1,6 +1,6 @@
 /*
  * File        : MDIO_Interface.h
- * Description : This interface file includes DIO Driver prototypes and difinitions for Atmega32
+ * Description : This interface file includes DIO Driver prototypes and definitions for Atmega32
  * Author      : Ahmed Elmogy Embedded SW Engineer 
  * Date        : 23/6/2019
  * Git account : https://github.com/AhmedElmougy
