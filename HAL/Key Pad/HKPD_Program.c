@@ -18,12 +18,12 @@
 
 
 /* 
- * Prototype   : void HKPD_u8InitializeKeypad(void);
+ * Prototype   : void HKPD_voidInitializeKeypad(void);
  * Description : initialize 4X4 keypad at a given port set 4 pins output and 4 pins input
  * Arguments   : void
  * Return      : void  
  */
- void HKPD_u8InitializeKeypad(void)
+ void HKPD_voidInitializeKeypad(void)
  {
 	
 	 /*for loop to scan all keypad columns and rows*/
@@ -40,16 +40,16 @@
 		
 	 }/*end of for loop*/
 	
- }/*end of HKPD_u8InitializeKeypad()*/
+ }/*end of HKPD_voidInitializeKeypad()*/
 
 
 /*
- * Prototype   : u8 HKPD_GetPressedKey(void);
+ * Prototype   : u8 HKPD_u8GetPressedKey(void);
  * Description : Return which key in the keypad has been pressed
  * Arguments   : void
  * return      : u8 pressed key
  */
- u8 HKPD_GetPressedKey(void)
+ u8 HKPD_u8GetPressedKey(void)
  {
 	 
 	/*for loop to set all column pins HIGH*/
@@ -85,7 +85,7 @@
 	/*Report no Button pressed*/
 	return '?';
 		
-}/*end of HKPD_GetPressedKey()*/
+}/*end of HKPD_u8GetPressedKey()*/
 
 /*===================================================================
  * EOF

@@ -18,7 +18,7 @@
  * Arguments   : void
  * Return      : void  
  */
- void HKPD_u8InitializeKeypad(void);
+ void HKPD_voidInitializeKeypad(void);
 
 /*
  * Prototype   : u8 HKPD_GetPressedKey(void);
@@ -26,7 +26,7 @@
  * Arguments   : void
  * return      : u8 pressed key
  */
- u8 HKPD_GetPressedKey(void);
+ u8 HKPD_u8GetPressedKey(void);
  
 #endif
 
