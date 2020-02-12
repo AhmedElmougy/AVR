@@ -1,6 +1,18 @@
+/*
+ * File        : MUART_Private.h
+ * Description : This File includes UART Driver private macros and declarations for Atmega32
+ * Author      : Ahmed Elmogy Embedded SW Engineer 
+ * Date        : 12/2/2020
+ * Git account : https://github.com/AhmedElmougy
+ * mail        : ahmed.m.elmogy@gmil.com 
+ */
+
 #ifndef __MUART_PRIVATE_H__
 #define __MUART_PRIVATE_H__
 
+/*=================================================================================
+ * UART Registers
+ *=================================================================================*/
 #define MUART_UDR    (*(volatile u8 *)(0x2C)) 
 #define MUART_UCSRA  (*(volatile u8 *)(0x2B)) 
 #define MUART_UCSRB  (*(volatile u8 *)(0x2A)) 
@@ -8,7 +20,10 @@
 #define MUART_UBRRL  (*(volatile u8 *)(0x29)) 
 #define MUART_UBRRH  (*(volatile u8 *)(0x40)) 
 
-//UCSRA
+/*=================================================================================
+ * UART Registers Pins
+ *=================================================================================*/
+/*UCSRA Register*/
 #define MUART_RXC                 7 
 #define MUART_TXC                 6
 #define MUART_UDRE                5
@@ -17,7 +32,8 @@
 #define MUART_PE                  2		  
 #define MUART_U2x                 1
 #define MUART_MPCM                0
-//UCSRB
+
+/*UCSRB Register*/
 #define MUART_RXCIE               7
 #define MUART_TXCIE               6
 #define MUART_UDRIE               5
@@ -26,7 +42,8 @@
 #define MUART_UCSZ2               2
 #define MUART_RXB8                1
 #define MUART_TXB8                0	
-//UCSRC
+
+/*UCSRC Register*/
 #define MUART_URSEL               7
 #define MUART_UMSEL               6
 #define MUART_UPM1                5
@@ -36,7 +53,9 @@
 #define MUART_UCSZ0               1
 #define MUART_UCPOL               0
 
-//Config Options
+/*=================================================================================
+ * Config macros
+ *=================================================================================*/
 #define MUART_DISABLED            0
 #define MUART_ENABLED             1
 
