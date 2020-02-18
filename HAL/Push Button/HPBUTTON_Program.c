@@ -7,8 +7,8 @@
  * mail        : ahmed.m.elmogy@gmil.com 
  */
 
-#include "L_STD_Types.h"
-#include "L_UTILS.h"
+#include "LSTD_Types.h"
+#include "LUTILS.h"
 #include "MDIO_Interface.h"
 #include "HPBUTTON_Private.h"
 #include "HPBUTTON_Interface.h"
@@ -30,7 +30,7 @@ u8 HPBUTTON_u8InitOneButton(u8 Copy_u8Reg,u8 Copy_u8Bit,u8 Copy_u8PullUpResStatu
 	/*set desired bit as input*/
 	MDIO_u8SetDirectionBit(Copy_u8Reg,Copy_u8Bit,MDIO_INPUT);
 	/*Configure bit pull up resistor status and return error value*/
-	return MDIO_u8ConfigPullupBit(u8 Copy_u8Reg,u8 Copy_u8Bit,u8 Copy_u8PullUpResStatus);
+	return MDIO_u8ConfigPullupBit(Copy_u8Reg,Copy_u8Bit,Copy_u8PullUpResStatus);
 
 }/*end of HPBUTTON_u8InitOneButton()*/
 
@@ -48,7 +48,7 @@ u8 HPBUTTON_u8InitStringOfButtons(u8 Copy_u8Reg,u8 Copy_u8PullUpResStatus)
 	/*set desired Reg as input*/
 	MDIO_u8SetDirectionReg(Copy_u8Reg,MDIO_INPUT);
 	/*Configure Reg pull up resistor status and return error value*/
-	return MDIO_u8ConfigPullupReg(u8 Copy_u8Reg,u8 Copy_u8PullUpResStatus);
+	return MDIO_u8ConfigPullupReg(Copy_u8Reg,Copy_u8PullUpResStatus);
 
 }/*end of HPBUTTON_u8InitStringOfButtons()*/
 
@@ -77,6 +77,6 @@ u8 HPBUTTON_u8ReadOneButton(u8 Copy_u8Reg,u8 Copy_u8Bit)
 u8 HPBUTTON_u8ReadStringOfButtons(u8 Copy_u8Reg)
 {
 	/*return desired Reg value or error value if there is one*/
-	return MDIO_u8ReadReg(Copy_u8Reg,Copy_u8Bit);
+	return MDIO_u8ReadReg(Copy_u8Reg);
 
 }/*end of HPBUTTON_u8ReadStringOfButtons()*/
